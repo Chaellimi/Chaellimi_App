@@ -9,7 +9,7 @@ import {
 	Keyboard,
 } from 'react-native';
 import Constants from 'expo-constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App(): React.ReactElement {
 	const statusBarHeight: number = Constants.statusBarHeight;
@@ -22,9 +22,7 @@ export default function App(): React.ReactElement {
 
 	const handleNavigationStateChange = (navState: any) => {
 		const currentUrl = navState.url;
-		setIsAuthPage(
-			currentUrl.includes('/auth') || currentUrl.includes('/register/surveyend')
-		);
+		setIsAuthPage(currentUrl.includes('/'));
 	};
 
 	useEffect(() => {
@@ -46,13 +44,16 @@ export default function App(): React.ReactElement {
 	}, []);
 
 	return (
-		<>
+		<SafeAreaProvider>
 			<StatusBar
 				backgroundColor={isAuthPage ? 'transparent' : 'white'}
 				barStyle='dark-content'
 				translucent={isAuthPage}
 			/>
-			<SafeAreaView style={styles.safeArea}>
+			<SafeAreaView
+				style={styles.safeArea}
+				edges={['top', 'right', 'bottom', 'left']}
+			>
 				<View
 					style={[
 						styles.container,
@@ -66,7 +67,8 @@ export default function App(): React.ReactElement {
 					>
 						<WebView
 							style={styles.webView}
-							source={{ uri: 'http://localhost:3000' }}
+							// source={{ uri: 'http://localhost:3000/' }}
+							source={{ uri: 'http://10.150.151.173:3000' }}
 							ref={webViewRef}
 							bounces={false}
 							scrollEnabled={false}
@@ -79,7 +81,7 @@ export default function App(): React.ReactElement {
 					</KeyboardAvoidingView>
 				</View>
 			</SafeAreaView>
-		</>
+		</SafeAreaProvider>
 	);
 }
 
