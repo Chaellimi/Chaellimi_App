@@ -68,7 +68,8 @@ export default function App(): React.ReactElement {
 						<WebView
 							style={styles.webView}
 							// source={{ uri: 'http://localhost:3000/' }}
-							source={{ uri: 'http://10.150.151.173:3000' }}
+							// source={{ uri: 'http://10.150.151.173:3000' }}
+							source={{ uri: 'https://chaellimi.jamkris.kro.kr/' }}
 							ref={webViewRef}
 							bounces={false}
 							scrollEnabled={false}
